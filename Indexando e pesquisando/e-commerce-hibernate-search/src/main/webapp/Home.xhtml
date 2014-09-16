@@ -1,0 +1,37 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">e-commerce</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frmPesquisa">
+			<p:messages id="messages" autoUpdate="true" closable="true" />
+		
+			<p:inputText placeholder="Olá, o que está procurando hoje?" value="#{pesquisaProdutoBean.text}" size="50" style="margin-right: 10px"/>
+			<p:commandButton icon="ui-icon-search" actionListener="#{pesquisaProdutoBean.pesquisar}" update="@form"/>
+			
+			<br/><br/>
+			
+			<p:dataGrid var="produto" value="#{pesquisaProdutoBean.produtosFiltrados}" columns="3"
+				rows="4" paginator="true" paginatorPosition="botton" emptyMessage="Nenhum produto encontrado ainda">
+				
+				<p:panel style="text-align:center" >
+					<h:panelGrid columns="1" style="width:100%">
+						<h:outputText value="#{produto.nome}" style="font-weight: bold"/>
+						<h:outputText value="#{produto.valor}">
+							<f:convertNumber type="number" minFractionDigits="2" maxFractionDigits="2" locale="pt_BR" />
+						</h:outputText>
+						<h:outputText value="#{produto.descricao}" />
+						
+					</h:panelGrid>
+				</p:panel>
+			</p:dataGrid>
+			
+		</h:form>
+	</ui:define>
+
+</ui:composition>
